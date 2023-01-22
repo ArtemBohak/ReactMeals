@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap");
 
 :root {
-  --adaptive-font: calc(16px + 2 * ((100vw - 320px) / (1440 - 320)));
+  --adaptive-font: calc(16px + 2   * ((100vw - 320px) / (1440 - 320)));
   --orange: #7f2607;
   --dark-orange: #451602;
   --dark: #323132;
@@ -18,24 +18,30 @@ html {
 body {
   margin: 0;
   background-color: #262526;
+  font-size: var(--adaptive-font);
+}
+
+#root {
+  padding: 0 3vw;
 }
 
 #background-image {
   width: 100vw;
-  height: 45vh;
+  height: 40vh;
   z-index: -1;
+
 
   background-position: 50% 50%;
   background-size: cover;
   background-image: url(./Images/meals.webp);
-  position: relative;
+  position: absolute;
   left: 0;
   top: 0;
 }
 
 .wavy-border {
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   width: 100%;
   overflow: hidden;
