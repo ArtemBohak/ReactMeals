@@ -19,3 +19,37 @@ body {
   margin: 0;
   background-color: #262526;
 }
+
+#background-image {
+  width: 100vw;
+  height: 45vh;
+  z-index: -1;
+
+  background-position: 50% 50%;
+  background-size: cover;
+  background-image: url(./Images/meals.webp);
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.wavy-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.wavy-border svg {
+  position: relative;
+  display: block;
+  width: calc(152% + 1.3px);
+  height: 80px;
+}
+
+.wavy-border .shape-fill {
+  fill: #262526;
+}
