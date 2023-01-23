@@ -2,13 +2,19 @@
 
 :root {
   --adaptive-font: calc(16px + 2   * ((100vw - 320px) / (1440 - 320)));
-  --orange: #7f2607;
-  --dark-orange: #451602;
-  --dark: #323132;
+  --orange: #8A2B06;
+  --dark-orange: #4D1601;
+  --dark: #383838;
+  --light-orange: #AC5502;
+  --bg-color: #3F3F3F;
 }
 
 * {
   box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
 html {
@@ -17,7 +23,7 @@ html {
 
 body {
   margin: 0;
-  background-color: #262526;
+  background-color: var(--bg-color);
   font-size: var(--adaptive-font);
 }
 
@@ -57,5 +63,5 @@ body {
 }
 
 .wavy-border .shape-fill {
-  fill: #262526;
+  fill: var(--bg-color);
 }

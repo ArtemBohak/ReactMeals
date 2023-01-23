@@ -6,7 +6,7 @@ import Card from "../CardStyle/Card";
 
 export default function Greeting(props) {
   return (
-    <Card className={styles["greeting-wrapper"]}>
+    <Card className={styles["greeting"]}>
       <h2>Delicious Food, Delivered To You</h2>
       <p>
         Choose your favorite meal from our broad selection of available meals
