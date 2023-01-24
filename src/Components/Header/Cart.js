@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "../Contexts/GlobalContext";
 
 import styles from "./Cart.module.css";
 
 export default function Cart(props) {
+  const ctx = useContext(GlobalContext);
+  const [cartClassName, setCartClassName] = useState(styles["cart"]);
+
+  useEffect(() => {
+    setCartClassName(`${styles["cart"]} ${styles["_new-order"]}`);
+    setTimeout(() => {
+      setCartClassName(styles["cart"]);
+    }, 500);
+  }, [ctx.cartQuantity]);
+
   return (
-    <div className={styles["cart"]}>
-      <span className={`${styles["cart__icon"] + ' fa-solid fa-cart-shopping'}`}></span>
-      <span className={styles["cart__quantity"]}>0</span>
+    <div className={cartClassName}>
+      <span
+        className={`${styles["cart__icon"] + " fa-solid fa-cart-shopping"}`}
+      ></span>
+      <span className={styles["cart__quantity"]}>{ctx.cartQuantity}</span>
     </div>
   );
 }

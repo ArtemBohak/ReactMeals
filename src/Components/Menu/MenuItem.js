@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 
 import styles from "./MenuItem.module.css";
+import { GlobalContext } from "../Contexts/GlobalContext";
 
 import AddButton from "../UI/AddButton/AddButton";
 
 export default function MenuItem(props) {
+  const [quantity, setQuantity] = useState(1);
+  const ctx = useContext(GlobalContext);
+
+  const changeInputHandler = (e) => {
+    setQuantity(e.target.value);
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
+
+    ctx.addCartQuantity(quantity);
+    setQuantity(1);
   };
 
   return (
@@ -25,7 +36,8 @@ export default function MenuItem(props) {
                 id="amount"
                 name="amount"
                 type="number"
-                defaultValue="1"
+                onChange={changeInputHandler}
+                value={quantity}
               ></input>
             </div>
             <AddButton />

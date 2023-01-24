@@ -4,13 +4,16 @@ import Header from './Components/Header/Header'
 import Greeting from './Components/Greeting/Greeting'
 import Menu from './Components/Menu/Menu'
 
+import GlobalContextProvider from './Components/Contexts/GlobalContext';
+
 function App() {
   return (
-    <React.Fragment>
+
+    <GlobalContextProvider>
       <Header />
       <Greeting />
       <Menu />
-    </React.Fragment>
+    </GlobalContextProvider>
   );
 }
 

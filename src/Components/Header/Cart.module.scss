@@ -18,7 +18,7 @@
   cursor: pointer;
   user-select: none;
 
-  transition: 0.2s all ease;
+  transition:  0.2s all ease;
 
   &:hover {
     background-color: #501c05;
@@ -27,6 +27,11 @@
       background-color: #b4411c;
     }
   }
+
+  &._new-order {
+    animation: newOrder 0.5s ease-out;
+  } 
+
 }
 
 .cart__icon {
@@ -46,4 +51,20 @@
   padding: 0 min(2vw, 20px);
   background-color: #af3c19;
   border-radius: 20px;
+}
+
+@keyframes newOrder {
+  0% {
+    transform: scale(0.9);
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
+  }
 }
