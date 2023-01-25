@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../Contexts/GlobalContext";
 
 import styles from "./Cart.module.css";
+import CartIcon from "./CartIcon";
 
 export default function Cart(props) {
   const ctx = useContext(GlobalContext);
@@ -16,9 +17,9 @@ export default function Cart(props) {
 
   return (
     <div className={cartClassName}>
-      <span
-        className={`${styles["cart__icon"] + " fa-solid fa-cart-shopping"}`}
-      ></span>
+        <span className={styles["cart__icon"]}>
+          <CartIcon />
+        </span>
       <span className={styles["cart__quantity"]}>{ctx.cartQuantity}</span>
     </div>
   );

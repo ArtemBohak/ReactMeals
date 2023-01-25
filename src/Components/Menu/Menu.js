@@ -7,17 +7,17 @@ import MenuItem from "./MenuItem";
 
 export default function Menu(props) {
   let meals = [
-    { meal: "Sushi", ingridients: "Finest fish and veggies", price: "$22.99" },
-    { meal: "Schnitzel", ingridients: "A german specialty!", price: "$16.50" },
+    { meal: "Sushi", ingridients: "Finest fish and veggies", price: "22.99" },
+    { meal: "Schnitzel", ingridients: "A german specialty!", price: "16.50" },
     {
       meal: "Barbecue Burger",
       ingridients: "American, raw, meaty",
-      price: "$12.99",
+      price: "12.99",
     },
     {
       meal: "Green Bowl",
       ingridients: "Healthy...and green...",
-      price: "$18.99",
+      price: "18.99",
     },
   ];
 
@@ -30,7 +30,7 @@ export default function Menu(props) {
               meal={item.meal}
               ingridients={item.ingridients}
               price={item.price}
-              key={Date.now() + Math.random()}
+              key={item.meal}
             />
           ))}
         </li>

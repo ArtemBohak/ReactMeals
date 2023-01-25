@@ -16,7 +16,7 @@ export default function MenuItem(props) {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    ctx.addCartQuantity(quantity);
+    ctx.addNewOrder({ meal: props.meal , quantity: +quantity, price: props.price});
     setQuantity(1);
   };
 
@@ -26,7 +26,7 @@ export default function MenuItem(props) {
         <div>
           <h3>{props.meal}</h3>
           <h5>{props.ingridients}</h5>
-          <h3 className={styles["menu-item__price"]}>{props.price}</h3>
+          <h3 className={styles["menu-item__price"]}>${props.price}</h3>
         </div>
         <div>
           <form onSubmit={submitHandler}>

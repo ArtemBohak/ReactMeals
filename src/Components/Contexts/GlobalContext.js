@@ -2,26 +2,54 @@ import React, { useState } from "react";
 
 const GlobalContext = React.createContext({
   cartQuantity: 0,
-  addCartQuantity: () => {},
+  addNewOrder: () => {},
 });
 
+function updateOrders(newOrder) {
+  let orders = localStorage.getItem("orders");
+
+  if (orders) {
+    orders = JSON.parse(orders);
+  } else {
+    orders = { 0 : {} };
+  }
+
+  let dishes = Object.values(orders)[0];
+  orders = Object.keys(orders)[0];
+  orders = `${+orders + newOrder.quantity}`;
+
+  console.log(orders, dishes);
+
+  if (newOrder.meal in dishes) {
+    dishes[newOrder.meal][0] += newOrder.quantity;
+    return { [orders]: dishes };
+  }
+  dishes[newOrder.meal] = [newOrder.quantity, +newOrder.price];
+  return { [orders]: dishes };
+}
+
 export default function GlobalContextProvider(props) {
-  const [cartQuantity, setCartQuantity] = useState(() => {
-    if (localStorage.getItem("cartQuantity")) {
-      return +localStorage.getItem("cartQuantity");
-    } else return 0;
+  const [order, setOrder] = useState(() => {
+    let orders = localStorage.getItem("orders");
+    console.log("parsing orders");
+    if (orders) {
+      return JSON.parse(orders);
+    } else return { 0: [] };
   });
 
-  function addCartQuantity(quantity) {
-    localStorage.setItem("cartQuantity", cartQuantity + +quantity);
-    console.log(localStorage.getItem("cartQuantity"));
-
-    setCartQuantity((prevState) => prevState + +quantity);
+  function addNewOrder(newOrder) {
+    let order = updateOrders(newOrder);
+    console.log(order);
+    localStorage.setItem("orders", JSON.stringify(order));
+    setOrder(() => order);
   }
 
   return (
     <GlobalContext.Provider
-      value={{ addCartQuantity: addCartQuantity, cartQuantity: cartQuantity }}
+      value={{
+        addNewOrder: addNewOrder,
+        cartQuantity: Object.keys(order)[0],
+      }}
     >
       {props.children}
     </GlobalContext.Provider>
