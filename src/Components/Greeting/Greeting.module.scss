@@ -3,6 +3,9 @@
   max-width: 700px;
   margin: 25vh auto 2vh auto;
 
+  background-color: var(--dark);
+  color: #fff;
+
   & h2 {
     font-size: calc(var(--adaptive-font) * 1.6);
     font-weight: 700;

@@ -11,14 +11,12 @@ function updateOrders(newOrder) {
   if (orders) {
     orders = JSON.parse(orders);
   } else {
-    orders = { 0 : {} };
+    orders = { 0: {} };
   }
 
   let dishes = Object.values(orders)[0];
   orders = Object.keys(orders)[0];
   orders = `${+orders + newOrder.quantity}`;
-
-  console.log(orders, dishes);
 
   if (newOrder.meal in dishes) {
     dishes[newOrder.meal][0] += newOrder.quantity;
@@ -31,7 +29,6 @@ function updateOrders(newOrder) {
 export default function GlobalContextProvider(props) {
   const [order, setOrder] = useState(() => {
     let orders = localStorage.getItem("orders");
-    console.log("parsing orders");
     if (orders) {
       return JSON.parse(orders);
     } else return { 0: [] };
@@ -39,7 +36,6 @@ export default function GlobalContextProvider(props) {
 
   function addNewOrder(newOrder) {
     let order = updateOrders(newOrder);
-    console.log(order);
     localStorage.setItem("orders", JSON.stringify(order));
     setOrder(() => order);
   }
