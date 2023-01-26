@@ -1,0 +1,1 @@
+.order-button{background-color:var(--orange);color:#fff;border:1px solid var(--orange);border-radius:15px;font-size:calc(var(--adaptive-font) + 2.5px);padding:0.5vw 2vw;width:auto;-webkit-transition:0.3s all ease;transition:0.3s all ease}.order-button:hover{background-color:var(--dark-orange);cursor:pointer}
