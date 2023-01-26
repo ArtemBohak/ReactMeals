@@ -53,9 +53,14 @@
   }
 }
 
-.menu-item h3,
-h5 {
+.menu-item h3 {
   margin: 1vh 0;
+  font-size: calc(var(--adaptive-font));
+}
+
+.menu-item h5 {
+  margin: 1vh 0;
+  font-size: calc(var(--adaptive-font));
 }
 
 .menu-item__price {

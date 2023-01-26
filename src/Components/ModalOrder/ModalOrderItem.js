@@ -7,19 +7,21 @@ import styles from "./ModalOrderItem.module.css";
 
 export default function ModalOrderItem(props) {
   return (
-    <li>
-      <div>
-        <h2>{props.meal}</h2>
-        <div>
-          <span>${props.price}</span>
-          <span>x {props.quantity}</span>
+    <React.Fragment>
+      <li className={styles["modal-window-item"]}>
+        <div className={styles["modal-window-item__data"]}>
+          <h2>{props.meal}</h2>
+          <div className={styles["modal-window-item__description"]}>
+            <span>${props.price}</span>
+            <span>x{props.quantity}</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <DecrementButton />
-        <IncrementButton />
-      </div>
+        <div className={styles["modal-window-item__buttons"]}>
+          <DecrementButton />
+          <IncrementButton />
+        </div>
+      </li>
       <hr></hr>
-    </li>
+    </React.Fragment>
   );
 }

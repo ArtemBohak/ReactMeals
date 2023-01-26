@@ -1,0 +1,19 @@
+.decre-increment-button {
+  transition: 0.3s all ease;
+
+  background-color: #fff;
+  color: var(--orange);
+
+  border: 1px solid var(--orange);
+  border-radius: 8px;
+
+  font-size: calc(var(--adaptive-font) + 2px);
+  padding: 0.75vh 1.5vw;
+  width: max(4.5vw, 45px);
+
+  &:hover {
+    background-color: var(--orange);
+    color: #fff;
+    cursor: pointer;
+  }
+}
