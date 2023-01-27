@@ -18,8 +18,17 @@ export default function ModalOrder(props) {
     }
   }
 
-  let orderList = Object.entries(Object.values(ctx.order)[0]);
-  orderList = orderList.map((item) => (
+  let orderList = Object.entries(Object.entries(ctx.order)[0][1]);
+
+  function evaluatePrice() {
+    let price = 0;
+    orderList.forEach((item) => {
+      price += +item[1][1] * +item[1][0]
+    })
+    return price.toFixed(2);
+  }
+
+  let ModalOrderList = orderList.map((item) => (
     <ModalOrderItem
       meal={item[0]}
       price={item[1][1]}
@@ -28,7 +37,7 @@ export default function ModalOrder(props) {
     />
   ));
 
-  if (+props.cartQuantity) {
+  if (+ctx.cartQuantity) {
     return (
       <div
         onClick={modalOrderClickHandler}
@@ -40,11 +49,11 @@ export default function ModalOrder(props) {
       >
         <Card className={styles["modal-window"]}>
           <div className={"modal-window__list"}>
-            <ul>{orderList}</ul>
+            <ul>{ModalOrderList}</ul>
           </div>
           <div className={styles["modal-window__total"]}>
             <span>Total Amount</span>
-            <span>$00.00</span>
+            <span>${evaluatePrice()}</span>
           </div>
           <div className={styles["modal-window__buttons"]}>
             <CloseButton hideModal={props.hideModal} />

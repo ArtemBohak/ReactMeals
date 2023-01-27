@@ -4,6 +4,8 @@ const GlobalContext = React.createContext({
   cartQuantity: 0,
   addNewOrder: () => {},
   order: { 0: {} },
+  deleteOldOrder: () => {},
+  updateOrders: () => {},
 });
 
 function updateOrders(newOrder) {
@@ -44,18 +46,18 @@ export default function GlobalContextProvider(props) {
         localStorage.removeItem("orders");
         return { 0: {} };
       }
-  
-      if (+dishes[deletedOrder.meal][0] === 1) {
+
+      if (dishes[deletedOrder.meal][0] === 1) {
         delete dishes[deletedOrder.meal];
         orders = `${+orders - 1}`;
-        orders = { [orders]: [dishes] };
+        orders = { [orders]: dishes };
         localStorage.setItem("orders", JSON.stringify(orders));
         return orders;
       }
-  
+
       orders = `${+orders - 1}`;
       dishes[deletedOrder.meal][0] = +dishes[deletedOrder.meal][0] - 1;
-      orders = { [orders]: [dishes] };
+      orders = { [orders]: dishes };
       localStorage.setItem("orders", JSON.stringify(orders));
       return orders;
     });
@@ -73,6 +75,7 @@ export default function GlobalContextProvider(props) {
         addNewOrder: addNewOrder,
         order: order,
         cartQuantity: Object.keys(order)[0],
+        deleteOldOrder: deleteOldOrder,
       }}
     >
       {props.children}

@@ -32,7 +32,6 @@ export default function Cart(props) {
       <ModalOrder
         hideModal={showModal}
         isShown={isShown}
-        cartQuantity={ctx.cartQuantity}
       />
     </React.Fragment>
   );

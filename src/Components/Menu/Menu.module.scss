@@ -1,10 +1,19 @@
 .menu {
+  transition: 1s all ease-out;
+
   background-color: #fff;
 
   max-width: 1024px;
   margin: 4vh auto 4vh auto;
   padding: 2% 2% 2% 2%;
 
+  opacity: 0;
+  transform: translate(0, 50%);
+
+  &._loaded {
+    opacity: 1;
+    transform: translate(0, 0);
+  } 
 }
 
 .menu ul {

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "../Contexts/GlobalContext";
 
 import DecrementButton from "../UI/DecrementIncrementButton/DecrementButton";
 import IncrementButton from "../UI/DecrementIncrementButton/IncrementButton";
@@ -6,6 +7,16 @@ import IncrementButton from "../UI/DecrementIncrementButton/IncrementButton";
 import styles from "./ModalOrderItem.module.css";
 
 export default function ModalOrderItem(props) {
+  const ctx = useContext(GlobalContext);
+
+  function clickDeletingHandler() {
+    ctx.deleteOldOrder({meal: props.meal});
+  }
+
+  function clickAddingHandler() {
+    ctx.addNewOrder({meal: props.meal, price: props.price, quantity: 1});
+  }
+
   return (
     <React.Fragment>
       <li className={styles["modal-window-item"]}>
@@ -17,8 +28,8 @@ export default function ModalOrderItem(props) {
           </div>
         </div>
         <div className={styles["modal-window-item__buttons"]}>
-          <DecrementButton />
-          <IncrementButton />
+          <DecrementButton onClick={clickDeletingHandler} />
+          <IncrementButton onClick={clickAddingHandler} />
         </div>
       </li>
       <hr></hr>
