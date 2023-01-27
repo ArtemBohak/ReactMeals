@@ -6,6 +6,7 @@ const GlobalContext = React.createContext({
   order: { 0: {} },
   deleteOldOrder: () => {},
   updateOrders: () => {},
+  resetOrders: () => {},
 });
 
 function updateOrders(newOrder) {
@@ -36,6 +37,11 @@ export default function GlobalContextProvider(props) {
       return JSON.parse(orders);
     } else return { 0: {} };
   });
+
+  function resetOrders() {
+    localStorage.removeItem('orders');
+    setOrder({0:{}});
+  }
 
   function deleteOldOrder(deletedOrder) {
     setOrder((prevState) => {
@@ -76,6 +82,7 @@ export default function GlobalContextProvider(props) {
         order: order,
         cartQuantity: Object.keys(order)[0],
         deleteOldOrder: deleteOldOrder,
+        resetOrders: resetOrders
       }}
     >
       {props.children}

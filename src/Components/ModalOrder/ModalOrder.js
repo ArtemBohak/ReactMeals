@@ -23,9 +23,16 @@ export default function ModalOrder(props) {
   function evaluatePrice() {
     let price = 0;
     orderList.forEach((item) => {
-      price += +item[1][1] * +item[1][0]
-    })
+      price += +item[1][1] * +item[1][0];
+    });
     return price.toFixed(2);
+  }
+
+  function makeOrder() {
+    props.hideModal();
+    setTimeout(() => {
+      ctx.resetOrders();
+    }, 500);
   }
 
   let ModalOrderList = orderList.map((item) => (
@@ -57,7 +64,7 @@ export default function ModalOrder(props) {
           </div>
           <div className={styles["modal-window__buttons"]}>
             <CloseButton hideModal={props.hideModal} />
-            <OrderButton />
+            <OrderButton onClick={makeOrder} />
           </div>
         </Card>
       </div>
