@@ -55,12 +55,12 @@
 
 .menu-item h3 {
   margin: 1vh 0;
-  font-size: calc(var(--adaptive-font));
+  font-size: calc(var(--adaptive-font) + 3px);
 }
 
 .menu-item h5 {
   margin: 1vh 0;
-  font-size: calc(var(--adaptive-font));
+  font-size: calc(var(--adaptive-font) + 3px);
 }
 
 .menu-item__price {

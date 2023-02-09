@@ -72,7 +72,7 @@ export default function GlobalContextProvider(props) {
   function addNewOrder(newOrder) {
     let order = updateOrders(newOrder);
     localStorage.setItem("orders", JSON.stringify(order));
-    setOrder(() => order);
+    setOrder(order);
   }
 
   return (
