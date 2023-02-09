@@ -2,7 +2,7 @@
 
 :root {
   --adaptive-font: calc(16px + 2   * ((100vw - 320px) / (1440 - 320)));
-  --orange: #8A2B06;
+  --orange: rgb(138, 43, 6);
   --dark-orange: #4D1601;
   --dark: #383838;
   --light-orange: #AC5502;

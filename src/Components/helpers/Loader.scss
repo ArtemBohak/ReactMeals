@@ -1,0 +1,20 @@
+
+.loader {
+  background-color: #fff;
+  border: 10px solid rgba(138, 43, 6, 0.5);
+  border-bottom: 10px solid rgb(138, 43, 6);
+  border-radius: 100%;
+  // transition: 1s all ease-in-out;
+
+  margin: 5vw auto;
+  width: 17vh;
+  height: 17vh;
+
+  animation: loading 1.5s linear infinite;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}

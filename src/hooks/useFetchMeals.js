@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function useFetchMeals(url) {
   const [mealsData, setMealsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function fetchGet() {
     let response = await fetch(url);
@@ -21,13 +22,14 @@ function useFetchMeals(url) {
           meals.push(res[key]);
         }
         setMealsData(meals);
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  return mealsData;
+  return {mealsData, isLoading};
 }
 
 export default useFetchMeals;

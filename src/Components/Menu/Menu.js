@@ -5,13 +5,12 @@ import styles from "./Menu.module.css";
 
 import Card from "../CardStyle/Card";
 import MenuItem from "./MenuItem";
+import Loader from "../helpers/Loader";
 
 export default function Menu() {
   const [menuStyle, setMenuStyle] = useState(styles["menu"]);
 
-  let meals;
-
-  meals = useFetchMeals(
+  let {mealsData: meals, isLoading: isLoading} = useFetchMeals(
     "https://learning-react-testing-default-rtdb.firebaseio.com/meals.json"
   );
     
@@ -19,9 +18,9 @@ export default function Menu() {
     setMenuStyle(`${styles["menu"]} ${styles["_loaded"]}`);
   }, []);
 
-
   return (
     <Card className={menuStyle}>
+      {isLoading && <Loader />}
       <ul>
         <li>
           {meals.map((item) => (
