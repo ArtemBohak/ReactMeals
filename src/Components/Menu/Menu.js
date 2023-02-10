@@ -10,7 +10,7 @@ import Loader from "../helpers/Loader";
 export default function Menu() {
   const [menuStyle, setMenuStyle] = useState(styles["menu"]);
 
-  let {mealsData: meals, isLoading: isLoading} = useFetchMeals(
+  let {mealsData: meals, errorMessage: errorMessage, isLoading: isLoading} = useFetchMeals(
     "https://learning-react-testing-default-rtdb.firebaseio.com/meals.json"
   );
     
@@ -20,7 +20,7 @@ export default function Menu() {
 
   return (
     <Card className={menuStyle}>
-      {isLoading && <Loader />}
+      {!errorMessage ? isLoading && <Loader /> : <p className={styles["error-message"]}>{errorMessage}</p>}
       <ul>
         <li>
           {meals.map((item) => (
@@ -28,7 +28,7 @@ export default function Menu() {
               meal={item.meal}
               ingridients={item.ingridients}
               price={item.price}
-              key={item.meal}
+              key={item.id}
             />
           ))}
         </li>

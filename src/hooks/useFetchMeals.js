@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 function useFetchMeals(url) {
   const [mealsData, setMealsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [errorMessage, setErrorMessage] = useState("");
   async function fetchGet() {
     let response = await fetch(url);
     if (!response.ok) {
@@ -19,17 +19,18 @@ function useFetchMeals(url) {
       .then((res) => {
         let meals = [];
         for (let key in res) {
-          meals.push(res[key]);
+          meals.push({ ...res[key], id: key });
         }
         setMealsData(meals);
-        setIsLoading(false)
+        setIsLoading(false);
       })
       .catch((error) => {
+        setErrorMessage("Something went wrong");
         console.log(error);
       });
   }, []);
 
-  return {mealsData, isLoading};
+  return { errorMessage, mealsData, isLoading };
 }
 
 export default useFetchMeals;
