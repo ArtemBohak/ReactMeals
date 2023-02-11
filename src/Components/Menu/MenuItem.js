@@ -33,7 +33,6 @@ export default function MenuItem(props) {
             <div>
               <label htmlFor="amount">Amount</label>
               <input
-                id="amount"
                 name="amount"
                 type="number"
                 onChange={changeInputHandler}

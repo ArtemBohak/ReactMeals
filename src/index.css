@@ -40,6 +40,10 @@ body {
   font-size: var(--adaptive-font);
 }
 
+body._unscrollable {
+  overflow: hidden;
+}
+
 #root {
   padding: 0 3vw;
 }

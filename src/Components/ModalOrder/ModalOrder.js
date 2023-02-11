@@ -8,12 +8,14 @@ import { GlobalContext } from "../Contexts/GlobalContext";
 import ModalOrderItem from "./ModalOrderItem";
 import CloseButton from "../UI/CloseButton/CloseButton";
 import OrderButton from "../UI/OrderButton/OrderButton";
+import Checkout from "../Checkout/Checkout";
 
 export default function ModalOrder(props) {
   const ctx = useContext(GlobalContext);
 
   function modalOrderClickHandler(event) {
     if (event.target == event.currentTarget) {
+      console.log("hiding");
       props.hideModal();
     }
   }
@@ -55,7 +57,7 @@ export default function ModalOrder(props) {
         }
       >
         <Card className={styles["modal-window"]}>
-          <div className={"modal-window__list"}>
+          <div className={styles["modal-window__list"]}>
             <ul>{ModalOrderList}</ul>
           </div>
           <div className={styles["modal-window__total"]}>
@@ -63,9 +65,10 @@ export default function ModalOrder(props) {
             <span>${evaluatePrice()}</span>
           </div>
           <div className={styles["modal-window__buttons"]}>
-            <CloseButton hideModal={props.hideModal} />
-            <OrderButton onClick={makeOrder} />
+            <CloseButton onClick={props.hideModal} />
+            <OrderButton onClick={makeOrder}>Order</OrderButton>
           </div>
+          <Checkout />
         </Card>
       </div>
     );

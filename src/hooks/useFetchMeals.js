@@ -9,6 +9,7 @@ function useFetchMeals(url) {
     if (!response.ok) {
       throw new Error(response.status);
     }
+    setIsLoading(false);
     response = await response.json();
 
     return response;
@@ -22,7 +23,6 @@ function useFetchMeals(url) {
           meals.push({ ...res[key], id: key });
         }
         setMealsData(meals);
-        setIsLoading(false);
       })
       .catch((error) => {
         setErrorMessage("Something went wrong");
