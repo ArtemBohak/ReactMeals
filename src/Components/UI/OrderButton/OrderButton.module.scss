@@ -7,7 +7,7 @@
 
   font-size: calc(var(--adaptive-font) + 2px);
 
-  padding: 0.5vw 2vw;
+  padding: 0.5vw max(2vw, 15px);
   width: auto;
 
   transition: 0.3s all ease;
@@ -16,5 +16,17 @@
     background-color: var(--dark-orange);
 
     cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: rgb(198, 193, 193);
+    color: rgb(142, 136, 136);
+    border-color: rgb(198, 193, 193);
+
+    &:hover {
+      background-color: rgb(198, 193, 193);
+      color: rgb(142, 136, 136);
+      cursor: auto;
+    }
   }
 }

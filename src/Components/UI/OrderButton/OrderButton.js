@@ -2,6 +2,6 @@ import React from 'react';
 
 import styles from "./OrderButton.module.css"
 
-export default function OrderButton(props) {
-  return <button onClick={props.onClick} className={styles['order-button']}>{props.children}</button>
+export default function OrderButton({children, onClick, ...props}) {
+  return <button {...props} onClick={onClick} className={styles['order-button']}>{children}</button>
 }

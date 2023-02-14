@@ -7,7 +7,7 @@
 
   font-size: calc(var(--adaptive-font) + 2px);
 
-  padding: 0.5vw 2vw;
+  padding: 0.5vw max(2vw, 15px);
   width: auto;
 
   transition: 0.3s all ease;

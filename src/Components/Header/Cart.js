@@ -23,7 +23,7 @@ export default function Cart(props) {
   }, [ctx.cartQuantity]);
 
   function showModal() {
-    document.body.classList.toggle('_unscrollable')
+    document.body.classList.toggle("_unscrollable");
     setIsShown((prevState) => !prevState);
   }
 

@@ -25,10 +25,9 @@
     background-color: #fff;
     color: #000;
 
-    height: auto;
-    max-height: 90vh;
+    // height: auto;
     width: 100%;
-    max-width: 700px;
+    max-width: 650px;
     margin: 0 2% 0 2%;
     padding: 4vh 3%;
 
@@ -38,7 +37,7 @@
     row-gap: 2vh;
 
     transition: 0.3s all;
-    transition-timing-function:cubic-bezier(0.39, 0.575, 0.565, 1);
+    transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
     transform: translate(0, -100%);
   }
 
@@ -57,21 +56,22 @@
 }
 
 .modal-window__list {
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 80vh;
   padding: 1px 0;
-  height: 30vh;
 }
 
 .modal-window__buttons {
-  margin: 0 15px 0 0;
   display: flex;
   flex-direction: row;
   column-gap: 2%;
+  transition: 0.3s all ease-in;
 
   justify-content: flex-end;
 
-  @media(max-width: 480px) {
+  @media (max-width: 480px) {
     margin: 0;
     justify-content: center;
   }
 }
+
