@@ -53,13 +53,14 @@ function validateCity(city) {
 }
 
 export default function Checkout({ goBack, ...props }) {
+  async function handleSubmit(values) {
+    props.confirmOrder(values)
+  } 
+
   return (
     <Formik
       initialValues={{ userName: "", street: "", postalCode: "", city: "" }}
-      onSubmit={(event) => {
-        event.preventDefault();
-        console.log(event);
-      }}
+      onSubmit={handleSubmit}
       initialErrors={{
         userName: "The field is empty",
         street: "The field is empty",
@@ -67,7 +68,7 @@ export default function Checkout({ goBack, ...props }) {
         city: "The field is empty",
       }}
     >
-      {({ errors, isValid, touched, ...props }) => {
+      {({ errors, isValid, touched, ...formikProps }) => {
         const userNameClassName = `${styles["form-control__input"]} ${
           errors.userName && touched.userName && styles["_invalid"]
         }`;
@@ -82,7 +83,7 @@ export default function Checkout({ goBack, ...props }) {
         }`;
 
         return (
-          <Form onSubmit={props.handleSubmit} className={styles["form"]}>
+          <Form onSubmit={formikProps.handleSubmit} className={styles["form"]}>
             <div className={styles["form-control"]}>
               <div className={userNameClassName}>
                 <label htmlFor="userName">Your name</label>
@@ -134,7 +135,9 @@ export default function Checkout({ goBack, ...props }) {
                 Back
               </CloseButton>
               {isValid ? (
-                <OrderButton type="submit">Confirm</OrderButton>
+                <OrderButton type="submit">
+                  Confirm
+                </OrderButton>
               ) : (
                 <OrderButton disabled type="submit">
                   Confirm

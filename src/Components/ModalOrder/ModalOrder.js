@@ -10,12 +10,32 @@ import CloseButton from "../UI/CloseButton/CloseButton";
 import OrderButton from "../UI/OrderButton/OrderButton";
 import Checkout from "../Checkout/Checkout";
 
+function FetchOrders(requestBody) {
+  async function fetchPost() {
+    let response = await fetch(
+      "https://learning-react-testing-default-rtdb.firebaseio.com/orders.json",
+      { method: "POST", body: requestBody }
+    );
+
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+
+    return response;
+  }
+
+  fetchPost().catch((error) => {
+    console.log("Something went wrong");
+    console.log(error.message);
+  });
+}
+
 export default function ModalOrder(props) {
   const ctx = useContext(GlobalContext);
   const [isCheckingOut, setisCheckingOut] = useState(false);
 
   function modalOrderClickHandler(event) {
-    if (event.target == event.currentTarget) {
+    if (event.target === event.currentTarget) {
       props.hideModal();
       setTimeout(() => setisCheckingOut(false), 300);
     }
@@ -32,11 +52,22 @@ export default function ModalOrder(props) {
   }
 
   function makeOrder() {
-    // props.hideModal();
-    // setTimeout(() => {
-    //   ctx.resetOrders();
-    // }, 500);
     setisCheckingOut(true);
+  }
+
+  async function confirmOrder(userData) {
+    const orderId = new Date().getTime();
+    let orderBody = JSON.stringify({
+      [orderId]: [userData, localStorage.getItem("orders")],
+    });
+
+    FetchOrders(orderBody);
+
+    props.hideModal();
+    setTimeout(() => {
+      ctx.resetOrders();
+    }, 500);
+    setisCheckingOut(false);
   }
 
   function goBack() {
@@ -70,7 +101,7 @@ export default function ModalOrder(props) {
         <span>Total Amount</span>
         <span>${evaluatePrice()}</span>
       </div>
-      <Checkout goBack={goBack} isCheckingOut={isCheckingOut} />
+      <Checkout confirmOrder={confirmOrder} goBack={goBack} />
     </>
   ) : (
     <div className={isCheckingOut ? styles["_is-checking-out"] : ""}>

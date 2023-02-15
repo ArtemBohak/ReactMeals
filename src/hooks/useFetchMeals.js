@@ -26,7 +26,7 @@ function useFetchMeals(url) {
       })
       .catch((error) => {
         setErrorMessage("Something went wrong");
-        console.log(error);
+        console.log(error.message);
       });
   }, []);
 
