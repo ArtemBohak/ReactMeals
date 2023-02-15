@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import ReactDOM from "react-dom";
 
 import Card from "../CardStyle/Card";
 import styles from "./ModalOrder.module.css";
@@ -87,14 +88,6 @@ export default function ModalOrder(props) {
     ? `${styles["modal"]} ${styles["_active"]}`
     : styles["modal"];
 
-  // const modalWindowListClassName = isCheckingOut
-  //   ? `${styles["modal-window__list"]} ${styles[["_is-checking-out"]]}`
-  //   : styles["modal-window__list"];
-
-  // const modalWindowButtonsClassName = isCheckingOut
-  //   ? `${styles["modal-window__buttons"]} ${styles["_is-checking-out"]}`
-  //   : styles["modal-window__buttons"];
-
   const modalLayout = isCheckingOut ? (
     <>
       <div className={styles["modal-window__total"]}>
@@ -119,32 +112,43 @@ export default function ModalOrder(props) {
     </div>
   );
 
-  if (+ctx.cartQuantity) {
-    return (
-      <div onClick={modalOrderClickHandler} className={modalWindowClassName}>
-        <Card className={styles["modal-window"]}>{modalLayout}</Card>
-      </div>
-    );
-  } else {
-    return (
-      <div
-        onClick={modalOrderClickHandler}
-        className={
-          props.isShown
-            ? `${styles["modal"]} ${styles["_active"]}`
-            : styles["modal"]
-        }
-      >
-        <Card className={styles["modal-window"]}>
-          <div className={styles["modal-window__total"]}>
-            <span>Total Amount</span>
-            <span>$00.00</span>
-          </div>
-          <div className={styles["modal-window__buttons"]}>
-            <CloseButton onClick={props.hideModal}>Close</CloseButton>
-          </div>
-        </Card>
-      </div>
-    );
+  function ModalOrderContent(props) {
+    if (+ctx.cartQuantity) {
+      return (
+        <div onClick={modalOrderClickHandler} className={modalWindowClassName}>
+          <Card className={styles["modal-window"]}>{modalLayout}</Card>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          onClick={modalOrderClickHandler}
+          className={
+            props.isShown
+              ? `${styles["modal"]} ${styles["_active"]}`
+              : styles["modal"]
+          }
+        >
+          <Card className={styles["modal-window"]}>
+            <div className={styles["modal-window__total"]}>
+              <span>Total Amount</span>
+              <span>$00.00</span>
+            </div>
+            <div className={styles["modal-window__buttons"]}>
+              <CloseButton onClick={props.hideModal}>Close</CloseButton>
+            </div>
+          </Card>
+        </div>
+      );
+    }
   }
+
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(
+        <ModalOrderContent {...props} />,
+        document.getElementById("modal-window")
+      )}
+    </React.Fragment>
+  );
 }
