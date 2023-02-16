@@ -5,11 +5,14 @@ import Card from "../CardStyle/Card";
 import styles from "./ModalOrder.module.css";
 
 import { GlobalContext } from "../Contexts/GlobalContext";
+import useMount from "../../hooks/useMount";
 
 import ModalOrderItem from "./ModalOrderItem";
 import CloseButton from "../UI/CloseButton/CloseButton";
 import OrderButton from "../UI/OrderButton/OrderButton";
 import Checkout from "../Checkout/Checkout";
+
+const ANIMATION_TIME = 300;
 
 function FetchOrders(requestBody) {
   async function fetchPost() {
@@ -34,6 +37,7 @@ function FetchOrders(requestBody) {
 export default function ModalOrder(props) {
   const ctx = useContext(GlobalContext);
   const [isCheckingOut, setisCheckingOut] = useState(false);
+  const { isMounted } = useMount(props.isShown, ANIMATION_TIME);
 
   function modalOrderClickHandler(event) {
     if (event.target === event.currentTarget) {
@@ -84,9 +88,9 @@ export default function ModalOrder(props) {
     />
   ));
 
-  const modalWindowClassName = props.isShown
-    ? `${styles["modal"]} ${styles["_active"]}`
-    : styles["modal"];
+  const modalWindowClassName = `${styles["modal"]} ${
+    props.isShown ? styles["_active"] : ""
+  }`;
 
   const modalLayout = isCheckingOut ? (
     <>
@@ -113,6 +117,9 @@ export default function ModalOrder(props) {
   );
 
   function ModalOrderContent(props) {
+    if (!isMounted) {
+      return null;
+    }
     if (+ctx.cartQuantity) {
       return (
         <div onClick={modalOrderClickHandler} className={modalWindowClassName}>
@@ -121,14 +128,7 @@ export default function ModalOrder(props) {
       );
     } else {
       return (
-        <div
-          onClick={modalOrderClickHandler}
-          className={
-            props.isShown
-              ? `${styles["modal"]} ${styles["_active"]}`
-              : styles["modal"]
-          }
-        >
+        <div onClick={modalOrderClickHandler} className={modalWindowClassName}>
           <Card className={styles["modal-window"]}>
             <div className={styles["modal-window__total"]}>
               <span>Total Amount</span>

@@ -15,6 +15,7 @@
 
   transition: 0.5s all ease;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 
   & .modal-window {
@@ -38,14 +39,15 @@
 
     transition: 0.3s all;
     transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
-    transform: translate(0, -100%);
+    transform: translateY(-75%);
   }
 
   &._active {
     opacity: 1;
     pointer-events: all;
+    visibility: visible;
     & .modal-window {
-      transform: translate(0, 0);
+      transform: translateY(0);
     }
   }
 }
