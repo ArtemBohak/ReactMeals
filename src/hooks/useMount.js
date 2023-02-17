@@ -6,12 +6,12 @@ export default function useMount(opened, ANIMATION_TIME) {
   useEffect(() => {
     if (opened && !isMounted) {
       setIsMounted(true);
-    } else if (!opened && !isMounted) {
+    } else if (!opened && isMounted) {
       setTimeout(() => {
         setIsMounted(false);
       }, ANIMATION_TIME);
     }
-  }, [opened]);
+  }, [opened, ANIMATION_TIME]);
 
   return {
     isMounted

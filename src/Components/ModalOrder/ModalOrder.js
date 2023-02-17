@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import ReactDOM from "react-dom";
+import { CSSTransition } from "react-transition-group";
 
 import Card from "../CardStyle/Card";
 import styles from "./ModalOrder.module.css";
@@ -12,7 +13,7 @@ import CloseButton from "../UI/CloseButton/CloseButton";
 import OrderButton from "../UI/OrderButton/OrderButton";
 import Checkout from "../Checkout/Checkout";
 
-const ANIMATION_TIME = 300;
+const ANIMATION_TIME = 500;
 
 function FetchOrders(requestBody) {
   async function fetchPost() {
@@ -35,6 +36,8 @@ function FetchOrders(requestBody) {
 }
 
 export default function ModalOrder(props) {
+  const modalRef = useRef();
+  const modalWindowRef = useRef();
   const ctx = useContext(GlobalContext);
   const [isCheckingOut, setisCheckingOut] = useState(false);
   const { isMounted } = useMount(props.isShown, ANIMATION_TIME);
@@ -88,9 +91,27 @@ export default function ModalOrder(props) {
     />
   ));
 
-  const modalWindowClassName = `${styles["modal"]} ${
+  const modalClassName = `${styles["modal"]} ${
     props.isShown ? styles["_active"] : ""
   }`;
+
+  const modalAnimation = {
+    enter: modalClassName,
+    enterActive: modalClassName,
+    exit: modalClassName,
+    exitActive: modalClassName
+  }
+
+  const modalWindowClassName = `${styles["modal-window"]} ${
+    props.isShown ? styles["_active"] : ""
+  }`;
+
+  const modalWindowAnimation = {
+    enter: modalWindowClassName,
+    enterActive: modalWindowClassName,
+    exit: modalWindowClassName,
+    exitActive: modalWindowClassName
+  }
 
   const modalLayout = isCheckingOut ? (
     <>
@@ -120,25 +141,74 @@ export default function ModalOrder(props) {
     if (!isMounted) {
       return null;
     }
+
     if (+ctx.cartQuantity) {
       return (
-        <div onClick={modalOrderClickHandler} className={modalWindowClassName}>
-          <Card className={styles["modal-window"]}>{modalLayout}</Card>
-        </div>
+        <>
+          <CSSTransition
+            nodeRef={modalRef}
+            timeout={ANIMATION_TIME}
+            in={props.isShown}
+            classNames={modalAnimation}
+          >
+            <div
+              ref={modalRef}
+              onClick={modalOrderClickHandler}
+              className={modalClassName}
+            ></div>
+          </CSSTransition>
+          <CSSTransition
+            nodeRef={modalWindowRef}
+            timeout={ANIMATION_TIME - 200}
+            in={props.isShown}
+            classNames={modalWindowAnimation}
+          >
+            <div
+              ref={modalWindowRef}
+              className={styles["modal-window-wrapper"]}
+            >
+              <Card className={styles["modal-window"]}>{modalLayout}</Card>
+            </div>
+          </CSSTransition>
+        </>
       );
     } else {
       return (
-        <div onClick={modalOrderClickHandler} className={modalWindowClassName}>
-          <Card className={styles["modal-window"]}>
-            <div className={styles["modal-window__total"]}>
-              <span>Total Amount</span>
-              <span>$00.00</span>
+        <>
+          <CSSTransition
+            nodeRef={modalRef}
+            timeout={ANIMATION_TIME}
+            in={props.isShown}
+            classNames={modalAnimation}
+          >
+            <div
+              ref={modalRef}
+              onClick={modalOrderClickHandler}
+              className={modalClassName}
+            ></div>
+          </CSSTransition>
+          <CSSTransition
+            nodeRef={modalWindowRef}
+            timeout={ANIMATION_TIME - 200}
+            in={props.isShown}
+            classNames={modalWindowAnimation}
+          >
+            <div
+              ref={modalWindowRef}
+              className={styles["modal-window-wrapper"]}
+            >
+              <Card className={styles["modal-window"]}>
+                <div className={styles["modal-window__total"]}>
+                  <span>Total Amount</span>
+                  <span>$00.00</span>
+                </div>
+                <div className={styles["modal-window__buttons"]}>
+                  <CloseButton onClick={props.hideModal}>Close</CloseButton>
+                </div>
+              </Card>
             </div>
-            <div className={styles["modal-window__buttons"]}>
-              <CloseButton onClick={props.hideModal}>Close</CloseButton>
-            </div>
-          </Card>
-        </div>
+          </CSSTransition>
+        </>
       );
     }
   }
